@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, redirect
 from flask import Response, request, jsonify
 app = Flask(__name__)
 from datetime import datetime
@@ -7,7 +7,7 @@ from datetime import datetime
 # ROUTES
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return redirect('https://listening-ear.co.uk/')
 
 @app.route('/refer')
 def refer():
