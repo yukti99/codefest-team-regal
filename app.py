@@ -13,6 +13,15 @@ def home():
 def refer():
     return render_template('refer.html')
 
+@app.route('/layout')
+def header():
+    return render_template('layout.html')
+
+
+@app.route('/header')
+def layout():
+    return render_template('header.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
