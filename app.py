@@ -4,9 +4,14 @@ from flask import Response, request, jsonify
 app = Flask(__name__)
 from datetime import datetime
 
+# ROUTES
 @app.route('/')
-def index():
-    return "Hello World"
+def home():
+    return render_template('home.html')
+
+@app.route('/refer')
+def refer():
+    return render_template('refer.html')
 
 
 if __name__ == '__main__':
