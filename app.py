@@ -20,7 +20,9 @@ def test_db():
     curr.close
     return_resp = []
     for row in result:
-        return_resp.append(row)
+        return_resp.append(row[0])
+    #print(",".join(return_resp))    
+        #return_resp.append(row)
     return make_response(jsonify(return_resp),'application/json')
 
 
@@ -44,6 +46,24 @@ def testdb_save():
     conn.commit()
  
     return 'User created successfully!'
+
+
+#get all clients
+@app.route('/getclients/')
+def get_clients():
+    cur = conn.cursor()
+    curr.execute('''select row_to_json(a) from ( \
+                 select clients.*, client_issues.* from clients left join \
+                 client_issues on \
+                 clients.client_id = client_issues.client_id \
+                ) a''')
+    result = curr.fetchall()
+    curr.close
+    return_resp = []
+    for row in result:
+        return_resp.append(row[0])
+    return make_response(jsonify(return_resp),'application/json')
+
 
 #Add new client
 
