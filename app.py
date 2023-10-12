@@ -53,17 +53,32 @@ def testdb_save():
 def get_clients():
     cur = conn.cursor()
     curr.execute('''select row_to_json(a) from ( \
-                 select clients.*, client_issues.* from clients left join \
-                 client_issues on \
-                 clients.client_id = client_issues.client_id \
+                 select * from clients
                 ) a''')
     result = curr.fetchall()
     curr.close
     return_resp = []
-    for row in result:
-        return_resp.append(row[0])
+    client_issues = get_issues()
+    for client in result:
+        c = client[0]
+        issues_array = []
+        for issues in client_issues:
+            iss = issues[0]
+            if iss["client_id"] == c["client_id"]:
+                issues_array.append(iss)
+        c["issues"] = issues_array
+        return_resp.append(c)
+    print(return_resp)
     return make_response(jsonify(return_resp),'application/json')
 
+def get_issues():
+    cur = conn.cursor()
+    curr.execute('''select row_to_json(a) from ( \
+                 select * from client_issues
+                ) a''')
+    result = curr.fetchall()
+    curr.close
+    return result
 
 #Add new client
 
@@ -71,7 +86,6 @@ def get_clients():
 
 #schedule appointment 
 
-#
 
 
 
