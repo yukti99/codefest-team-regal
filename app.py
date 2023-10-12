@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, redirect
 from flask import Response, request, jsonify, make_response
 app = Flask(__name__)
 from datetime import datetime
@@ -57,10 +57,16 @@ referrals = {
 # ROUTES
 @app.route('/')
 def home():
-    return render_template('refer.html')
+    return redirect('https://listening-ear.co.uk/')
 
-@app.route('/refer')
+@app.route('/refer', methods =["GET", "POST"])
 def refer():
+    if request.method == "POST":
+       first_name = request.form.get("first-name")
+       last_name = request.form.get("last-name") 
+       issues = request.form.get("bereavement") != None
+       print(f"Your name is {first_name} {last_name}")
+       print(f"Does client have bereavement issue: {issues}")
     return render_template('refer.html')
 
 @app.route('/admin')
