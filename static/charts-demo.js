@@ -24,8 +24,8 @@ var lineChartConfig = {
 		
 		datasets: [{
 			label: 'Dataset',
-			backgroundColor: "rgba(117,193,129,0.2)", 
-			borderColor: "rgba(117,193,129, 0.8)", 
+			backgroundColor: "#1BB4EE",
+			borderColor: "#1C5BA7", 
 			data: [
 				randomDataPoint(),
 				randomDataPoint(),
@@ -216,7 +216,7 @@ var pieChartConfig = {
 			],
 			backgroundColor: [
 				window.chartColors.green,
-				window.chartColors.blue,
+				"#1BB4EE",
 				window.chartColors.gray,
 
 			],
