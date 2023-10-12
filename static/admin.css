@@ -10,6 +10,11 @@ body {
   padding: 20px 10px;
 }
 
+
+.nav-item{
+  font-size:23px;
+}
+
 #referral-row {
     cursor: pointer;
     
@@ -35,6 +40,6 @@ table.dataTable thead .sorting_desc_disabled:before {
   bottom: .5em;
 }
 
-#difficulty-dropdown{
+#difficulty-dropdown, #client-status-dropdown{
   margin:10px;
 }
