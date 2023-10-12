@@ -9,8 +9,14 @@ from datetime import datetime
 def home():
     return redirect('https://listening-ear.co.uk/')
 
-@app.route('/refer')
+@app.route('/refer', methods =["GET", "POST"])
 def refer():
+    if request.method == "POST":
+       first_name = request.form.get("first-name")
+       last_name = request.form.get("last-name") 
+       issues = request.form.get("bereavement") != None
+       print(f"Your name is {first_name} {last_name}")
+       print(f"Does client have bereavement issue: {issues}")
     return render_template('refer.html')
 
 @app.route('/admin')

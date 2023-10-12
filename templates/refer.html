@@ -36,7 +36,170 @@
         </div>
       </div>
         <main class="flex-fill">
-            main content...
+          <style>
+            .heading {
+               width: 1340px;
+               border: 3px solid #31bbf0;
+               box-shadow: 9px 6px 4px #e2f4f8;
+               margin: 50px;
+               color: #31bbf0;
+           }
+         </style>
+         <div class="heading">
+            <h3 style="color: #1c5ba7;"><center>Referral Form</center></h3>
+            <form style="margin: 50px;" method="POST" action="/refer">
+              <div class="row mb-4">
+                <div class="col">
+                  <div class="form-outline">
+                    <label class="form-label">First name</label>
+                    <input type="text" id="first-name" name="first_name" class="form-control" />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    <label class="form-label">Last name</label>
+                    <input type="text" id="last-name" name="last_name" class="form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label">Address</label>
+                <input type="email" id="address-line1" name="address_line1" class="form-control" placeholder="Address Line 1"/>
+              </div>
+              <div class="form-outline mb-4">
+                <input type="email" id="address-line1" name="address_line1" class="form-control" placeholder="Address Line 2"/>
+              </div>
+              <div class="row mb-4">
+                <div class="col">
+                  <div class="form-outline">
+                    <input type="text" id="city" name="city" class="form-control" placeholder="City"/>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    <input type="text" id="state" name="state" class="form-control" placeholder="State"/>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder="Zipcode"/>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col">
+                  <div class="form-outline sm-1">
+                    <label class="form-label">Date of Birth</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline sm-1">
+                    <label class="form-label">NHS number</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline sm-1">
+                    <label class="form-label">Email</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline sm-1">
+                    <label class="form-label">Phone</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col">
+                  <div class="form-outline sm-1">
+                    <input type="date" id="date_of_birth" name="date-of-birth"/>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline sm-1">
+                    <input type="text" id="nhs" class="form-control" name="nhs"/>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline sm-1">
+                    <input type="text" id="email" class="form-control" name="email"/>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline sm-1">
+                    <input type="text" id="phone" class="form-control" name="phone"/>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="form-label">GP Surgery</label>
+              </div>
+              <div class="row mb-4">
+                <div class="col">
+                  <div class="form-outline">
+                    <input type="text" id="gp_name" name="gp-name" class="form-control" placeholder="Name"/>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    <input type="text" id="gp_address" id="gp-address" class="form-control" placeholder="Address"/>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    <input type="text" id="gp_phone" name="gp-phone" class="form-control" placeholder="Phone"/>
+                  </div>
+                </div>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-check-label" for="flexCheckDefault">What do you consider to be your main difficulty?</label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label" for="flexCheckDefault" style="color: black;">Bereavement</label>
+                <input class="form-check-input" type="checkbox" value="" id="checkbox1" name="bereavement" />
+              </div>
+              <div class="form-check">
+                <label class="form-check-label" for="flexCheckDefault" style="color: black;">Domestic Abuse</label>
+                <input class="form-check-input" type="checkbox" value="" id="checkbox2" name="domestic_abuse"/>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label" for="flexCheckDefault" style="color: black;">Divorce/Seperation</label>
+                <input class="form-check-input" type="checkbox" value="" id="checkbox3" name="divorce_seperation"/>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label" for="flexCheckDefault" style="color: black;">Children Looked After</label>
+                <input class="form-check-input" type="checkbox" value="" id="checkbox4" name="children_looked_after"/>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label" for="flexCheckDefault" style="color: black;">Suicide Bereavement</label>
+                <input class="form-check-input" type="checkbox" value="" id="checkbox5" name="suicide_bereavement"/>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label" for="flexCheckDefault" style="color: black;">Depression</label>
+                <input class="form-check-input" type="checkbox" value="" id="checkbox6" name="depression"/>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label" for="flexCheckDefault" style="color: black;">Anxiety</label>
+                <input class="form-check-input" type="checkbox" value="" id="checkbox7" name="anxiety"/>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label" for="flexCheckDefault" style="color: black;">Stress</label>
+                <input class="form-check-input" type="checkbox" value="" id="checkbox8" name="stress"/>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label" for="flexCheckDefault" style="color: black;">Gender Identity/Sexuality</label>
+                <input class="form-check-input" type="checkbox" value="" id="checkbox9" name="gender_sexuality"/>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label" for="flexCheckDefault" style="color: black;">Other</label>
+                <input class="form-check-input" type="checkbox" value="" id="checkbox10" name="other"/>
+              </div>
+              <div class="form-outline mb-4">
+                <div>
+                  <center><button type="submit" class="btn btn-primary" id="submit-referral">Submit</button></center>
+                </div>
+              </div>
+            </form>
+          </div>
         </main>
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
             <div class="col-md-4 d-flex align-items-center">
