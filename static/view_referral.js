@@ -28,12 +28,22 @@ function displayClientDetails(info){
     div2 = $('<div class="col"><div class="form-outline sm-1"><label class="form-label">Phone<div id="details">'+info.phone_number+'</div></label></div></div>')
     row3.append(div1);
     row3.append(div2);
-    div2 = $(' <label class="form-label">Difficulty(s)<div id="details">'+info.issue_desc+'</div></label>')
+    difficulty_div = $('<label class="form-label">Difficulty(s)')
+    console.log("check: ")
+    console.log(info.issues)
+    for (var d in info.issues){
+        console.log(info.issues)
+        div = $('<div id="details">'+info.issues[d].issue_desc+'</div>')
+        difficulty_div.append(div)
+    }
+    difficulty_div.append('</label>')
+    
+    // div2 = $(' <label class="form-label">Difficulty(s)<div id="details">'+info.issue_desc+'</div></label>')
 
     main_div.append(row1);
     main_div.append(row2);
     main_div.append(row3);
-    main_div.append(div2);
+    main_div.append(difficulty_div);
     $("#client_details-div").append(main_div);
 
 }

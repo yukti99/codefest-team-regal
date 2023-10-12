@@ -110,27 +110,69 @@ def refer():
        print(f"Does client have bereavement issue: {issues}")
     return render_template('refer.html')
 
+# @app.route('/admin')
+# def admin():
+#     curr.execute('''select row_to_json(clients) from clients''')
+#     result = curr.fetchall()
+#     curr.close
+#     referrals = []
+#     for row in result:
+#         referrals.append(row[0])
+#     return render_template('admin.html', referrals = referrals)
+
 @app.route('/admin')
 def admin():
-    curr.execute('''select row_to_json(clients) from clients''')
+    cur = conn.cursor()
+    curr.execute('''select row_to_json(a) from ( \
+                 select * from clients
+                ) a''')
     result = curr.fetchall()
     curr.close
-    referrals = []
-    for row in result:
-        referrals.append(row[0])
-    return render_template('admin.html', referrals = referrals)
+    return_resp = []
+    client_issues = get_issues()
+    for client in result:
+        c = client[0]
+        issues_array = []
+        for issues in client_issues:
+            iss = issues[0]
+            if iss["client_id"] == c["client_id"]:
+                issues_array.append(iss)
+        c["issues"] = issues_array
+        return_resp.append(c)
+    print(return_resp)
+    return render_template('admin.html', referrals = return_resp)
+
+# @app.route('/view_referral/<id>')
+# def view_referral(id):
+#     cur = conn.cursor()
+#     curr.execute(f"select row_to_json(clients) from clients where client_id = {id}")
+#     result = curr.fetchall()
+#     curr.close
+#     clients = []
+#     for row in result:
+#         clients.append(row[0])
+#     print(clients[0])
+#     return render_template('view_referral.html', client_id=id, client_dict=clients[0]) 
 
 @app.route('/view_referral/<id>')
 def view_referral(id):
     cur = conn.cursor()
-    curr.execute(f"select row_to_json(clients) from clients where client_id = {id}")
+    curr.execute(f"select row_to_json(a) from (select * from clients where client_id = {id}) a")
     result = curr.fetchall()
     curr.close
-    clients = []
-    for row in result:
-        clients.append(row[0])
-    print(clients[0])
-    return render_template('view_referral.html', client_id=id, client_dict=clients[0]) 
+    return_resp = []
+    client_issues = get_issues()
+    for client in result:
+        c = client[0]
+        issues_array = []
+        for issues in client_issues:
+            iss = issues[0]
+            if iss["client_id"] == c["client_id"]:
+                issues_array.append(iss)
+        c["issues"] = issues_array
+        return_resp.append(c)
+    print(return_resp)
+    return render_template('view_referral.html', client_id=id, client_dict=return_resp[0]) 
 
 @app.route('/testdb/save', methods=['POST'])
 def testdb_save():
