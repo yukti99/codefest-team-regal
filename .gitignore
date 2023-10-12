@@ -16,7 +16,8 @@ build/
 .pytest_cache/
 .idea/
 docs/_build/
-.vscode
+.vscode/
+.github/
 
 # Coverage reports
 htmlcov/
