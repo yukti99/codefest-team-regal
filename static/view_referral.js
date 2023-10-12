@@ -28,21 +28,37 @@ function displayClientDetails(info){
     div2 = $('<div class="col"><div class="form-outline sm-1"><label class="form-label">Phone<div id="details">'+info.phone_number+'</div></label></div></div>')
     row3.append(div1);
     row3.append(div2);
-    difficulty_div = $('<label class="form-label">Difficulty(s)')
-    console.log("check: ")
-    console.log(info.issues)
+    difficulty_div = $('<label id="difficulty-header" class="form-label">Difficulty(s)</label>')
+    
+
     for (var d in info.issues){
-        console.log(info.issues)
-        div = $('<div id="details">'+info.issues[d].issue_desc+'</div>')
-        difficulty_div.append(div)
+        var c = d+1
+        var sub_div = $('<div class="col issue-table">')
+        div1 = $('<div class="col"><div class="form-outline sm-1"><label class="form-label-small">Issue Type<div id="details">'+info.issues[d].issue_type+'</div></label></div></div>')
+        div2 = $('<div class="col"><div class="form-outline sm-1"><label class="form-label-small">Issue Description<div id="details">'+info.issues[d].issue_desc+'</div></label></div></div>')
+        if (info.issues[d].therapist_id != -1){
+            div3 = $('<div class="col"><div class="form-outline sm-1"><label class="form-label-small">Issue Therapist<div id="details">'+info.issues[d].therapist_name+'</div></label></div></div>')
+        }else{
+            div3 = $('<div class="col"><div class="form-outline sm-1"><label class="form-label-small">Issue Therapist<div id="details"></div></label></div></div>')
+            btn_div = '<button id="update-therapist-btn" type="submit" class="btn btn-primary">Update</button>'
+            let form_div = $('<form method="POST" action="/edit_therapist"><input type="text" placeholder="please update" id="therapist-input" name="therapist-name" class="form-control"/><input type="text" name="issue_id_submit" value="'+info.issues[d].issue_id+'" hidden>')
+            form_div.append(btn_div)
+            div3.append(form_div)
+        }
+        sub_div.append(div1)
+        sub_div.append(div2)
+        sub_div.append(div3)
+        difficulty_div.append(sub_div)
+       
     }
     difficulty_div.append('</label>')
+
     
-    // div2 = $(' <label class="form-label">Difficulty(s)<div id="details">'+info.issue_desc+'</div></label>')
 
     main_div.append(row1);
     main_div.append(row2);
     main_div.append(row3);
+    $("#difficulty-header").text("Difficulty(s)");
     main_div.append(difficulty_div);
     $("#client_details-div").append(main_div);
 

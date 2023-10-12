@@ -20,5 +20,20 @@
     margin: 50px;
 }
 
+.form-label-small{
+    font-size: 15px;
+}
+
+.issue-table{
+    border: 1px solid lightblue;
+    border-radius: 2%;
+    padding: 15px;
+    margin-bottom: 40px;
+}
+
+#update-therapist-btn{
+    margin-top:10px;
+}
+
 
 

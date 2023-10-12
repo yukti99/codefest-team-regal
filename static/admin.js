@@ -4,8 +4,6 @@ function filter_difficulty() {
     filter = input.value.toUpperCase();
     table = document.getElementById("client-table");
     tr = table.getElementsByTagName("tr");
-    console.log('hello')
-    console.log(filter)
     if (filter == "ALL"){
       displayReferrals(referrals);
       return
@@ -32,7 +30,6 @@ $(document).ready(function() {
 $(document).ready(function(){
     $("#search-referrals").on("keyup", function() {
       var value = $(this).val().toLowerCase();
-      console.log(value)
       $("#referral-table tr").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
@@ -42,9 +39,21 @@ $(document).ready(function(){
 function displayReferrals(referrals){
     $("#referral-table").empty();
     for (var r in referrals) {
-        console.log(referrals[r]);
         createReferralTile(referrals[r]);
     }   
+}
+
+function makeid() {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    let length = 8;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
 }
 
 function createReferralTile(referral){
@@ -60,10 +69,19 @@ function createReferralTile(referral){
     div = '<td>'+ referral["date_of_birth"] + "</td>";
     main_div.append(div) 
     div = '<td>'+ referral["postal_code"] + "</td>";
-    main_div.append(div) 
-    // TODO:change this to issue
-    div = '<td>'+ referral["client_status"] + "</td>";
-    main_div.append(div) 
+    main_div.append(div)
+    div = '<td>'+ referral["issue_type"] + "</td>";
+    main_div.append(div)  
+    div = '<td>'+ makeid() + "</td>";
+    main_div.append(div)  
+    // var diff = ""
+    // for (var i in referral["issues"]){
+    //     diff+=referral["issues"][i].issue_desc+", "
+    // }
+    // console.log(diff)
+    // div = '<td>'+ diff + "</td>";
+    // main_div.append(div) 
+
     // div = '<td><button id="admit-btn" type="button" class="btn btn-success">Admit</button></td>'
     // main_div.append(div) 
 

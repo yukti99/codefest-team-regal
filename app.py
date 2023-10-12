@@ -223,6 +223,27 @@ def get_issues():
     curr.close
     return result
 
+@app.route('/edit_therapist', methods=['POST'])
+def edit_therapist():
+    if request.method == 'POST':
+        try:
+            therapist_new_val = request.form.get('therapist-name')
+            print(f"Therapist new value = {therapist_new_val}")
+            issue_id = int(request.form.get('issue_id_submit'))
+            print(f"Issue id = {issue_id}")
+            cur = conn.cursor()
+            update_query = f"UPDATE client_issues SET therapist_name = '{therapist_new_val}' WHERE issue_id = {issue_id}"
+            cur.execute(update_query)
+            conn.commit()
+            return jsonify(message="Client issue updated successfully")
+        except Exception as e:
+            print(e)
+            return jsonify(error="Failed to update client issue"), 400
+           
+        
+
+	
+
 #Add new client
 @app.route('/add_client', methods=['POST'])
 def insert_client():
@@ -296,6 +317,7 @@ def insert_client():
             print(e)
             return jsonify(error="Failed to insert client issue"), 400
     
+
 
 
 
