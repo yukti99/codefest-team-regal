@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'regalapp'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_611B3E386D0C45C4A239872914070350 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_56B0D0A392AE4B168A248E7C494FE4C4 }}
