@@ -130,7 +130,7 @@ def refer():
                     phone_number=request.form.get('phone'),
                     address= request.form.get('address_line1') + ' ' + request.form.get('address_line2') + ' ' + request.form.get('city') + \
                 ' '+ request.form.get('state') + request.form.get('zipcode'),
-                    client_status="Inactive"
+                    client_status="PENDING"
                 )
                         
                 insert_query = """
