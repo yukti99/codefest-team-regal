@@ -5,9 +5,37 @@ app = Flask(__name__)
 from datetime import datetime
 import psycopg2
 import json
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import IntegrityError
+
+
 
 conn = psycopg2.connect(database="citus", user="citus", 
                         password="Regal!123", host="c-regal.vbxdxws6j7gzii.postgres.cosmos.azure.com", port="5432") 
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://citus:Regal!123@c-regal.vbxdxws6j7gzii.postgres.cosmos.azure.com/citus' 
+
+db = SQLAlchemy(app)
+
+class Client(db.Model):
+    client_id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(50))
+    last_name = db.Column(db.String(50))
+    date_of_birth = db.Column(db.Date)
+    postal_code = db.Column(db.String(20))
+    nsh_number = db.Column(db.Integer)
+    phone_number = db.Column(db.String(20))
+    address = db.Column(db.String(100))
+    client_status = db.Column(db.String(20))
+
+class ClientIssue(db.Model):
+    issue_id = db.Column(db.Integer, primary_key=True)
+    client_id = db.Column(db.Integer, db.ForeignKey('client.client_id'))
+    issue_type = db.Column(db.String(50))
+    issue_desc = db.Column(db.String(50))
+    therapist_id = db.Column(db.Integer)
+    created_date = db.Column(db.Date)
+    therapist_name = db.Column(db.String(50))
 
 curr = conn.cursor()
 
@@ -81,6 +109,38 @@ def get_issues():
     return result
 
 #Add new client
+@app.route('/add_client', methods=['POST'])
+def insert_client():
+    if request.method == 'POST':
+        try:
+            data = request.get_json()
+            new_client = Client(
+                first_name=data['first_name'],
+                last_name=data['last_name'],
+                date_of_birth=data['date_of_birth'],
+                postal_code=data['postal_code'],
+                nsh_number=data['nsh_number'],
+                phone_number=data['phone_number'],
+                address=data['address'],
+                client_status=data['client_status'])
+            
+            db.session.add(new_client)
+            db.session.flush()
+            db.session.commit()
+            new_client_issue = ClientIssue(
+                client_id=new_client.client_id,
+                issue_type=data['issue_type'],
+                issue_desc=data['issue_desc'],
+                therapist_id=data['therapist_id'],
+                created_date=data['created_date']
+            )
+            db.session.add(new_client_issue)
+            db.session.commit()  
+            return jsonify(message="Client inserted successfully")
+        except IntegrityError as e:
+            db.session.rollback()
+            return jsonify(error="Failed to insert client issue"), 400
+    
 
 #Update existing client
 

@@ -1,8 +1,11 @@
-click @ file:///C:/ci/click_1646056762388/work
-colorama @ file:///C:/b/abs_a9ozq0l032/croot/colorama_1672387194846/work
-Flask @ file:///opt/conda/conda-bld/flask_1648041541647/work
-itsdangerous @ file:///tmp/build/80754af9/itsdangerous_1621432558163/work
-Jinja2 @ file:///C:/b/abs_7cdis66kl9/croot/jinja2_1666908141852/work
-MarkupSafe @ file:///C:/ci/markupsafe_1654508036328/work
+click==8.0.4
+colorama==0.4.6
+Flask==2.0.3
+itsdangerous==2.0.1
+Jinja2==3.1.2
+MarkupSafe==2.1.1
+pip==23.2.1
 psycopg2-binary==2.9.1
-Werkzeug @ file:///C:/b/abs_8578rs2ra_/croot/werkzeug_1679489759009/work
+setuptools==68.0.0
+Werkzeug==2.2.3
+wheel==0.41.2
