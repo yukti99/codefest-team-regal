@@ -60,7 +60,7 @@ var lineChartConfig = {
 			titleFontColor: window.chartColors.text,
             callbacks: {
                 label: function(tooltipItem, data) {	                 
-	                return tooltipItem.value + '%';   
+	                return tooltipItem.value;   
                 }
             },
             
@@ -94,7 +94,7 @@ var lineChartConfig = {
 				ticks: {
 		            beginAtZero: true,
 		            userCallback: function(value, index, values) {
-		                return value.toLocaleString() + '%';  
+		                return value.toLocaleString();  
 		            }
 		        },
 			}]

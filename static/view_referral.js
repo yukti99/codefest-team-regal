@@ -6,7 +6,7 @@ $(document).ready(function() {
 function displayClientDetails(info){
     console.log("info");
     console.log(info);
-    let main_div = $('<form>');
+    let main_div = $('<form method="POST" action="/admit_client">');
     let row1 = $('<div class="row mb-4">')
     let div1 = $('<div class="col"><div class="form-outline"><label class="form-label">First name: <div id="details">'+info.first_name+'</div></label></div>');
     let div2 = $('<div class="col"><div class="form-outline"><label class="form-label">Last name: <div id="details">'+info.last_name+'</div></label></div>');
@@ -48,6 +48,7 @@ function displayClientDetails(info){
         sub_div.append(div1)
         sub_div.append(div2)
         sub_div.append(div3)
+
         difficulty_div.append(sub_div)
        
     }
@@ -60,7 +61,14 @@ function displayClientDetails(info){
     main_div.append(row3);
     $("#difficulty-header").text("Difficulty(s)");
     main_div.append(difficulty_div);
+    console.log(info.issues[d].client_id)
+    btn_div = '<th><button id="admit-btn" type="submit" class="btn btn-success">Admit<input type="text" name="client_id_submit" value="'+info.issues[d].client_id+'" hidden></button></th>'
+    main_div.append(btn_div)
+
+
     $("#client_details-div").append(main_div);
+
+    
 
 }
 

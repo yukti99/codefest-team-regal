@@ -74,6 +74,11 @@ function createReferralTile(referral){
     main_div.append(div)  
     div = '<td>'+ makeid() + "</td>";
     main_div.append(div)  
+    div = '<td>'+ referral["client_status"] + "</td>";
+    main_div.append(div)  
+    // div = '<td><button id="admit-btn" type="button" class="btn btn-success">Admit</button></td>'
+    // main_div.append(div)  
+
     // var diff = ""
     // for (var i in referral["issues"]){
     //     diff+=referral["issues"][i].issue_desc+", "

@@ -331,7 +331,20 @@ def edit_therapist():
             return jsonify(error="Failed to update client issue"), 400
            
         
-
+@app.route('/admit_client', methods=['POST'])
+def admit_client():
+    if request.method == 'POST':
+        try:
+            client_id = request.form.get('client_id_submit')
+            print(f"Client Id = {client_id}")
+            cur = conn.cursor()
+            update_query = f"UPDATE clients SET client_status = 'ADMITTED' WHERE client_id = {client_id}"
+            cur.execute(update_query)
+            conn.commit()
+            return jsonify(message="Client issue updated successfully")
+        except Exception as e:
+            print(e)
+            return jsonify(error="Failed to update client issue"), 400
 	
 
 #Add new client
