@@ -1,0 +1,49 @@
+{% include "header.html" %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../static/admin.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{url_for('static', filename='admin.css')}}" />
+
+<script>
+    let referrals = {{referrals|tojson}};
+</script>
+
+<div class="container-fluid">  
+    <div class="container-fluid" id="referral-container">  
+        <div class="container">
+            <br>
+            <h2>Referrals</h2>
+            <p>Type something in the input field to search the table for first names, last names or emails:</p>  
+            <input class="form-control" id="search-referrals" type="text" placeholder="Search..">
+            <br>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Firstname</th>
+                  <th>Lastname</th>
+                  <th>DOB</th>
+                  <th>Postcode</th>
+                  <th>Problem</th>
+                </tr>
+              </thead>
+              <tbody id="referral-table">
+              </tbody>
+            </table>
+          </div>
+    </div> 
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      <div class="col-md-4 d-flex align-items-center">
+        <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+          <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+        </a>
+        <span class="mb-3 mb-md-0 text-muted">© 2019 Listening Ear. All rights reserved.</span>
+      </div>
+    </footer> 
+</div>
+
+
+{% endblock %}

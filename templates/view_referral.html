@@ -1,0 +1,41 @@
+{% include "header.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='view_referral.css')}}" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../static/view_referral.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+    let client_id = {{client_id|tojson}};
+    let client = {{client_dict|tojson}}
+    console.log(client_id)
+    console.log(client)
+</script>
+
+<div class="container-fluid">  
+    <div class="container-fluid" id="referral-container">  
+        <div class="container">
+            <main class="flex-fill">
+               <br>
+               <h2>Client Details</h2>
+               <p>Please review the refferral submitted for the client</p>  
+               <br>
+               <div class="heading" id="client_details-div">
+                
+               </div>
+              </main>
+          </div>
+    </div> 
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      <div class="col-md-4 d-flex align-items-center">
+        <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+          <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+        </a>
+        <span class="mb-3 mb-md-0 text-muted">© 2019 Listening Ear. All rights reserved.</span>
+      </div>
+    </footer> 
+</div>
+
+
+{% endblock %}

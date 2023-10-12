@@ -1,0 +1,21 @@
+.heading {
+    margin-left:0;
+    width: 1340px;
+    border: 3px solid #31bbf0;
+    box-shadow: 9px 6px 4px #e2f4f8;
+    color: #31bbf0;
+    padding: 20px;
+}
+
+#details{
+   color: black;
+   font-size: 16px;
+}
+
+.form-label{
+   font-size: 23px;
+}
+
+.form{
+    margin: 50px;
+}
