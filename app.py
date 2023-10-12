@@ -63,6 +63,10 @@ def home():
 def refer():
     return render_template('refer.html')
 
+@app.route('/test')
+def test():
+    return render_template('example.html')
+
 @app.route('/admin')
 def admin():
     curr.execute('''select row_to_json(clients) from clients''')

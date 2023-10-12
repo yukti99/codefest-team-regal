@@ -1,0 +1,61 @@
+<div class="table-wrapper">
+    <div class="table-title">
+    </div>
+        <div class="table-filter">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="show-entries">
+                        <span>Show</span>
+                        <select class="form-control">
+                            <option>5</option>
+                            <option>10</option>
+                        </select>
+                        <span>entries</span>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="filter-group">
+                        <label>Status</label>
+                        <select class="form-control">
+                            <option>Any</option>
+                            <option>Completed</option>
+                            <option>In Progress</option>
+                            <option>To Run</option>
+                        </select>
+                    </div>
+                <span class="filter-icon"><i class="fa fa-filter"></i></span>
+                </div>
+            </div>
+        </div>
+    <form method="post" action="activeInactive.php">
+        <table class="paginated table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Test Name</th>
+                    <th>Created By</th>
+                    <th>Last updated</th>
+                    <th>Test status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="test_table">
+
+                <?PHP
+
+                $test_access = 0;
+                while($row = mysqli_fetch_array($tests_under_user)){    
+                    echo '<td width=250px; title="'.$testName.'"><a href="">'.$row['name'].'</a></td>';
+                    echo '<td title="'.$row['created'].'">'.$row['created'].'</td>';
+                    echo '<td title="'.$row['edited'].'">'.$row['edited'].'</td>';
+                    echo '<td>In Progress</td>';
+                    echo '<td>';
+                    echo '<a href="" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>';   
+                    echo '<a href="" class="delete" name="delete" data-toggle="modal" Onclick="return ConfirmDelete()"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>';
+                    echo '<a href="" class="copy" name="copy" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Copy" style="color: #2874A6">file_copy</i></a>';
+                    echo '</td>';
+                }
+                ?>
+            </tbody>
+        </table>
+    </form>
+</div>

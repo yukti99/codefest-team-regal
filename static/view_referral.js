@@ -34,6 +34,7 @@ function displayClientDetails(info){
     main_div.append(row2);
     main_div.append(row3);
     main_div.append(div2);
+    
     $("#client_details-div").append(main_div);
 
 }

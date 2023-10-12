@@ -5,6 +5,7 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../static/admin.js"></script>
 
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="{{url_for('static', filename='admin.css')}}" />
 
@@ -20,18 +21,46 @@
             <p>Type something in the input field to search the table for first names, last names or emails:</p>  
             <input class="form-control" id="search-referrals" type="text" placeholder="Search..">
             <br>
-            <table class="table table-bordered table-striped">
+            <div class="table-filter">
+              <div class="row">
+                <div class="col-sm-9">
+                  <div id="difficulty-list" onchange="filter_difficulty()" class="filter-group row">
+                      <label>Filter by Client Difficulty</label>
+                      <select  id="difficulty-dropdown" class="form-control">
+                        <option>All</option>
+                        <option>Bereavement</option>
+                        <option>Domestic Abuse</option>
+                        <option>Divorce Seperation</option>
+                        <option>Suicide Bereavement</option>
+                      </select>
+                  </div>
+                  <br>
+                  <span class="filter-icon"><i class="fa fa-filter"></i></span>
+                </div>
+              </div>
+          </div>
+          <br>
+            <table id="client-table" class="table table-bordered table-striped">
               <thead>
                 <tr>
                   <th>Firstname</th>
                   <th>Lastname</th>
                   <th>DOB</th>
                   <th>Postcode</th>
-                  <th>Problem</th>
+                  <th>Difficulty</th>
                 </tr>
               </thead>
               <tbody id="referral-table">
               </tbody>
+              <tfoot>
+                <tr>
+                  <th>Firstname</th>
+                  <th>Lastname</th>
+                  <th>DOB</th>
+                  <th>Postcode</th>
+                  <th>Difficulty</th>
+                </tr>
+            </tfoot>
             </table>
           </div>
     </div> 
