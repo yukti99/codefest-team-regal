@@ -414,58 +414,7 @@
                 </div>
 
                 <div class="tab-pane fade show" id="admin_clients_tab_pane" role="tabpanel" aria-labelledby="admin_clients_tab" tabindex="0">
-                  <div class="container-fluid">  
-                    <div class="container-fluid" id="referral-container">  
-                        <div class="container">
-                            <br>
-                            <h2>Referrals</h2>
-                            <p>Type something in the input field to search the table for first names, last names or emails:</p>  
-                            <input class="form-control" id="search-referrals" type="text" placeholder="Search..">
-                            <br>
-                            <div class="table-filter">
-                                <div class="row">
-                                  <div class="col-sm-9">
-                                    <div id="difficulty-list" onchange="filter_difficulty()" class="filter-group row">
-                                        <label>Filter by Client Difficulty</label>
-                                        <select  id="difficulty-dropdown" class="form-control">
-                                          <option>All</option>
-                                          <option>Bereavement</option>
-                                          <option>Domestic Abuse</option>
-                                          <option>Divorce Seperation</option>
-                                          <option>Suicide Bereavement</option>
-                                        </select>
-                                    </div>
-                                    <br>
-                                    <span class="filter-icon"><i class="fa fa-filter"></i></span>
-                                  </div>
-                                </div>
-                            </div>
-                            <br>
-                            <table class="table table-bordered table-striped">
-                              <thead>
-                                <tr>
-                                  <th>Firstname</th>
-                                  <th>Lastname</th>
-                                  <th>DOB</th>
-                                  <th>Postcode</th>
-                                  <th>Difficulty</th>
-                                </tr>
-                              </thead>
-                              <tbody id="referral-table">
-                              </tbody>
-                              <tfoot>
-                                <tr>
-                                  <th>Firstname</th>
-                                  <th>Lastname</th>
-                                  <th>DOB</th>
-                                  <th>Postcode</th>
-                                  <th>Difficulty</th>
-                                </tr>
-                            </tfoot>
-                            </table>
-                          </div>
-                        </div>
-                    </div> 
+                    {% include "table.html" %}
                 </div>
 
                 <div class="tab-pane fade show" id="admin_therapists_tab_pane" role="tabpanel" aria-labelledby="admin_therapists_tab" tabindex="0">

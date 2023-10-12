@@ -15,7 +15,7 @@ body {
     
 }
 #referral-row:hover{
-    background-color: #1bb4ee;
+    background-color: #1bb4ee !important
 }
 
 table.dataTable thead .sorting:after,

@@ -4,6 +4,7 @@ function filter_difficulty() {
     filter = input.value.toUpperCase();
     table = document.getElementById("client-table");
     tr = table.getElementsByTagName("tr");
+    console.log('hello')
     console.log(filter)
     if (filter == "ALL"){
       displayReferrals(referrals);
