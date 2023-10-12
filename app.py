@@ -126,7 +126,7 @@ def refer():
                     last_name=request.form.get('last_name'),
                     date_of_birth=request.form.get('date_of_birth'),
                     postal_code=request.form.get('zipcode'),
-                    nsh_number=request.form.get('nsh'),
+                    nsh_number=request.form.get('nhs'),
                     phone_number=request.form.get('phone'),
                     address= request.form.get('address_line1') + ' ' + request.form.get('address_line2') + ' ' + request.form.get('city') + \
                 ' '+ request.form.get('state') + request.form.get('zipcode'),
@@ -340,7 +340,7 @@ def insert_client():
                     last_name=request.form.get('last_name'),
                     date_of_birth=request.form.get('date_of_birth'),
                     postal_code=request.form.get('zipcode'),
-                    nsh_number=request.form.get('nsh'),
+                    nhs_number=request.form.get('nhs'),
                     phone_number=request.form.get('phone'),
                     address= request.form.get('address_line1') + ' ' + request.form.get('address_line2') + ' ' + request.form.get('city') + \
                 ' '+ request.form.get('state') + request.form.get('zipcode'),
