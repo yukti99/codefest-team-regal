@@ -109,7 +109,7 @@ function createReferralTile(referral){
   main_div.append(div) 
   div = '<td>'+ referral["postal_code"] + "</td>";
   main_div.append(div)
-  div = '<td>'+ referral["issue_type"] + "</td>";
+  div = '<td>'+ referral["issues"][0]["issue_type"] + "</td>";
   main_div.append(div)  
   div = '<td>'+ makeid() + "</td>";
   main_div.append(div)  
