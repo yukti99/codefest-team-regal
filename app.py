@@ -103,11 +103,92 @@ def home():
 @app.route('/refer', methods =["GET", "POST"])
 def refer():
     if request.method == "POST":
-       first_name = request.form.get("first-name")
-       last_name = request.form.get("last-name") 
-       issues = request.form.get("bereavement") != None
-       print(f"Your name is {first_name} {last_name}")
-       print(f"Does client have bereavement issue: {issues}")
+        try:
+            all_clients = get_all_clients()
+            fn = request.form.get("first_name")
+            ln = request.form.get("last_name")
+            dob = request.form.get("date_of_birth")
+
+            existing_client_id = -1
+            existing_client = False
+            for c in all_clients:
+                c = c[0]
+                if str(c["first_name"]).lower() == fn.lower() and str(c["last_name"]).lower() == ln.lower() and c["date_of_birth"] == dob:
+                    existing_client_id = c["client_id"]
+                    existing_client = True
+                    break
+            print(f"existing client {existing_client}")
+
+            cur = conn.cursor()
+            if not existing_client:
+                new_client = Client(
+                    first_name=request.form.get('first_name'),
+                    last_name=request.form.get('last_name'),
+                    date_of_birth=request.form.get('date_of_birth'),
+                    postal_code=request.form.get('zipcode'),
+                    nsh_number=request.form.get('nhs'),
+                    phone_number=request.form.get('phone'),
+                    address= request.form.get('address_line1') + ' ' + request.form.get('address_line2') + ' ' + request.form.get('city') + \
+                ' '+ request.form.get('state') + request.form.get('zipcode'),
+                    client_status="Inactive"
+                )
+                        
+                insert_query = """
+                INSERT INTO clients (first_name, last_name, date_of_birth, postal_code, nsh_number, phone_number, address, client_status)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                RETURNING client_id
+                """
+                cur.execute(insert_query, (new_client.first_name, new_client.last_name, new_client.date_of_birth, new_client.postal_code, 
+                                        new_client.nsh_number, new_client.phone_number, new_client.address, new_client.client_status))
+                conn.commit()
+                new_client_record = cur.fetchone()
+                existing_client_id = int(new_client_record[0])
+
+            issue_type = ""
+            if request.form.get("bereavement"):
+                issue_type += "bereavement,"
+            if request.form.get("domestic_abuse"):
+                issue_type += "domestic_abuse,"
+            if request.form.get("children_looked_after"):
+                issue_type += "children_looked_after,"
+            if request.form.get("suicide_bereavement"):
+                issue_type += "suicide_bereavement,"
+            if request.form.get("depression"):
+                issue_type += "depression,"
+            if request.form.get("anxiety"):
+                issue_type += "anxiety,"
+            if request.form.get("stress"):
+                issue_type += "stress,"
+            if request.form.get("gender_sexuality"):
+                issue_type += "gender_sexuality,"
+            if request.form.get("other"):
+                issue_type += "other,"    
+
+            issue_type_cons = issue_type[:-1]
+                    
+            new_client_issue = ClientIssue(
+                client_id=existing_client_id,
+                issue_type = issue_type_cons,
+                issue_desc = issue_type_cons,
+                therapist_id=-1,
+                therapist_name="",
+                created_date=datetime.now().strftime("%Y-%m-%d")
+            )
+
+            insert_client_issue_query = """
+             INSERT INTO client_issues (client_id, issue_type, issue_desc, therapist_id, created_date, therapist_name)
+             VALUES (%s, %s, %s, %s, %s, %s)
+            """
+            print(insert_client_issue_query)
+          
+            cur.execute(insert_client_issue_query, (new_client_issue.client_id, new_client_issue.issue_type, new_client_issue.issue_desc,
+                                                    new_client_issue.therapist_id, new_client_issue.created_date, 
+                                                    new_client_issue.therapist_name))
+            conn.commit()
+            # return jsonify(message="Client issue inserted successfully")
+        except Exception as e:
+            print(e)
+            return jsonify(error="Failed to insert client issue"), 400
     return render_template('refer.html')
 
 # @app.route('/admin')
@@ -223,6 +304,15 @@ def get_issues():
     curr.close
     return result
 
+def get_all_clients():
+    cur = conn.cursor()
+    curr.execute('''select row_to_json(a) from ( \
+                 select * from clients
+                ) a''')
+    result = curr.fetchall()
+    curr.close
+    return result
+
 @app.route('/edit_therapist', methods=['POST'])
 def edit_therapist():
     if request.method == 'POST':
@@ -245,22 +335,50 @@ def edit_therapist():
 	
 
 #Add new client
-@app.route('/add_client', methods=['POST'])
+# @app.route('/add_client', methods=['POST'])
 def insert_client():
     if request.method == 'POST':
         try:
-            new_client = Client(
-                first_name=request.form.get('first_name'),
-                last_name=request.form.get('last_name'),
-                date_of_birth=request.form.get('date_of_birth'),
-                postal_code=request.form.get('zipcode'),
-                nsh_number=request.form.get('nsh'),
-                phone_number=request.form.get('phone'),
-                address= request.form.get('address_line1') + ' ' + request.form.get('address_line2') + ' ' + request.form.get('city') + \
-               ' '+ request.form.get('state') + request.form.get('zipcode'),
-                client_status="Inactive"
-            )
-            print("Here in post"+ new_client.first_name)
+            all_clients = get_all_clients()
+            fn = request.form.get("first_name")
+            ln = request.form.get("last_name")
+            dob = request.form.get("date_of_birth")
+
+            existing_client_id = -1
+            existing_client = False
+            for c in all_clients:
+                c = c[0]
+                if str(c["first_name"]).lower() == fn.lower() and str(c["last_name"]).lower() == ln.lower() and c["date_of_birth"] == dob:
+                    existing_client_id = c["client_id"]
+                    existing_client = True
+                    break
+            print(f"existing client {existing_client}")
+
+            cur = conn.cursor()
+            if not existing_client:
+                new_client = Client(
+                    first_name=request.form.get('first_name'),
+                    last_name=request.form.get('last_name'),
+                    date_of_birth=request.form.get('date_of_birth'),
+                    postal_code=request.form.get('zipcode'),
+                    nhs_number=request.form.get('nhs'),
+                    phone_number=request.form.get('phone'),
+                    address= request.form.get('address_line1') + ' ' + request.form.get('address_line2') + ' ' + request.form.get('city') + \
+                ' '+ request.form.get('state') + request.form.get('zipcode'),
+                    client_status="Inactive"
+                )
+                        
+                insert_query = """
+                INSERT INTO clients (first_name, last_name, date_of_birth, postal_code, nsh_number, phone_number, address, client_status)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                RETURNING client_id
+                """
+                cur.execute(insert_query, (new_client.first_name, new_client.last_name, new_client.date_of_birth, new_client.postal_code, 
+                                        new_client.nsh_number, new_client.phone_number, new_client.address, new_client.client_status))
+                conn.commit()
+                new_client_record = cur.fetchone()
+                existing_client_id = int(new_client_record[0])
+
             issue_type = ""
             if request.form.get("bereavement"):
                 issue_type += "bereavement,"
@@ -283,18 +401,8 @@ def insert_client():
 
             issue_type_cons = issue_type[:-1]
                     
-            cur = conn.cursor()
-            insert_query = """
-            INSERT INTO clients (first_name, last_name, date_of_birth, postal_code, nsh_number, phone_number, address, client_status)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-            RETURNING client_id
-            """
-            cur.execute(insert_query, (new_client.first_name, new_client.last_name, new_client.date_of_birth, new_client.postal_code, 
-                                       new_client.nsh_number, new_client.phone_number, new_client.address, new_client.client_status))
-            conn.commit()
-            new_client_record = cur.fetchone()
             new_client_issue = ClientIssue(
-                client_id=int(new_client_record[0]),
+                client_id=existing_client_id,
                 issue_type = issue_type_cons,
                 issue_desc = issue_type_cons,
                 therapist_id=-1,
@@ -312,7 +420,7 @@ def insert_client():
                                                     new_client_issue.therapist_id, new_client_issue.created_date, 
                                                     new_client_issue.therapist_name))
             conn.commit()
-            return jsonify(message="Client issue inserted successfully")
+            # return jsonify(message="Client issue inserted successfully")
         except Exception as e:
             print(e)
             return jsonify(error="Failed to insert client issue"), 400
