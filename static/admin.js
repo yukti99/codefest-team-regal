@@ -47,7 +47,6 @@ function displayReferrals(referrals){
     }   
 }
 
-
 function createReferralTile(referral){
     let main_div = $('<tr id="referral-row">');
     // for (var r in referral) {
@@ -62,8 +61,11 @@ function createReferralTile(referral){
     main_div.append(div) 
     div = '<td>'+ referral["postal_code"] + "</td>";
     main_div.append(div) 
+    // TODO:change this to issue
     div = '<td>'+ referral["client_status"] + "</td>";
     main_div.append(div) 
+    // div = '<td><button id="admit-btn" type="button" class="btn btn-success">Admit</button></td>'
+    // main_div.append(div) 
 
     $(main_div).click(function(){
         let pageURL = "http://127.0.0.1:5000/view_referral/"+referral["client_id"];

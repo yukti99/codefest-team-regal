@@ -18,6 +18,10 @@ body {
     background-color: #1bb4ee !important
 }
 
+#admit-btn{
+  margin-left:20px;
+}
+
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting:before,
 table.dataTable thead .sorting_asc:after,
