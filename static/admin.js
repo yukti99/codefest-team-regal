@@ -8,16 +8,33 @@ function filter_difficulty() {
     displayReferrals(referrals);
     return
   }
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display =   "";
-      } else {
-        tr[i].style.display = "none";
+  for (i = 1; i < tr.length; i++) {
+    // Hide the row initially.
+    tr[i].style.display = "none";
+
+    td = tr[i].getElementsByTagName("td");
+    for (var j = 0; j < td.length; j++) {
+      cell = tr[i].getElementsByTagName("td")[j];
+      console.log(cell)
+      if (cell) {
+        if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break;
+        } 
       }
-    }       
+    }
   }
+
+  // for (i = 0; i < tr.length; i++) {
+  //   td = tr[i].getElementsByTagName("td")[0];
+  //   if (td) {
+  //     if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+  //       tr[i].style.display =   "";
+  //     } else {
+  //       tr[i].style.display = "none";
+  //     }
+  //   }       
+  // }
 }
 
 function filter_status() {
@@ -113,7 +130,7 @@ function createReferralTile(referral){
   // main_div.append(div) 
 
   $(main_div).click(function(){
-      let pageURL = "http://127.0.0.1:5000/view_referral/"+referral["client_id"];
+      let pageURL = "https://regalapp.azurewebsites.net/view_referral/"+referral["client_id"];
       document.location.href = pageURL;
   });
   $('#referral-table').append(main_div); 
